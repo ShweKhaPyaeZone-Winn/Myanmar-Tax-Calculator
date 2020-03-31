@@ -1,0 +1,171 @@
+import java.util.Scanner;
+
+public class Myanmar_Tax_Calculator {
+    private static int FatherRelief;
+    private static int MotherRelief;
+    private static int WifeRelief;
+    private static int ChildrenRelief;
+    private static int taxableIncome;
+    private static int totalTax;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What is your name?");
+        String name = sc.nextLine();
+        System.out.println("What is your monthly salary?");
+        int MonthlySalary = sc.nextInt();
+        int AnnualSalary = MonthlySalary*12;
+        int PersonalRelief = AnnualSalary/5;
+        int insurance = 72000;
+        while(true){
+            System.out.print("Do You Have A Father ( Yes / No ) ? ");
+            String Father = sc.nextLine();
+            if (Father.equals("Yes") ) {
+                FatherRelief=1000000;
+                break;
+            }
+            else if(Father.equals("No")){
+                break;
+            }
+            else {
+                System.out.println("0");
+            }
+        }
+        while(true){
+            System.out.print("Do You Have A Mother ( Yes / No ) ? ");
+            String Mother = sc.nextLine();
+            if (Mother.equals("Yes") ) {
+                MotherRelief=1000000;
+                break;
+            }
+            else if(Mother.equals("No")){
+                break;
+            }
+            else {
+                System.out.println("0");
+            }
+        }
+        while(true){
+            System.out.print("Do You Have married( Yes / No ) ? ");
+            String married = sc.nextLine();
+            if (married.equals("Yes")) {
+               WifeRelief=1000000;
+                while(true){
+                    System.out.print("Do You Have A Children ( Yes / No ) ? ");
+                    String Children = sc.nextLine();
+                    if (Children.equals("Yes")) {
+                        System.out.print("How Many Children Do You Have ? ");
+                        int Child=sc.nextInt();
+                        ChildrenRelief=Child*500000;
+                        break;
+                    }
+                    else if(Children.equals("No")){
+                        break;
+                    }
+                    else {
+                        System.out.println("0");
+                    }
+                }
+                break;
+            }
+            else if(married.equals("No")) {
+                break;
+            }
+            else {
+                System.out.println("0");
+            }
+        }
+
+        taxableIncome = AnnualSalary-(PersonalRelief+insurance+FatherRelief+MotherRelief+WifeRelief+ChildrenRelief);
+
+        if(taxableIncome<2000000){
+            totalTax=taxableIncome;
+        }
+        else if(taxableIncome>2000000 && taxableIncome< 5000000){
+            totalTax=(taxableIncome-2000000)*5/100;
+        }
+        else if(taxableIncome>5000000 && taxableIncome< 10000000){
+            totalTax=150000+((taxableIncome-5000000)*10/100);
+        }
+        else if(taxableIncome>10000000 && taxableIncome< 20000000){
+            totalTax=150000+500000+((taxableIncome-1000000)*15/100);
+        }
+        else if(taxableIncome>20000000 && taxableIncome< 30000000){
+            totalTax=150000+500000+1500000+((taxableIncome-1000000)*20/100);
+        }
+        else{
+            totalTax=150000+500000+1500000+2000000+((taxableIncome-1000000)*25/100);
+        }
+        int monthlyTax = totalTax/12;
+
+        System.out.println("\u001B[34m \n\nRESULT");
+        System.out.println("Monthly Salary                = " + MonthlySalary);
+        System.out.println("Annual Salary                 = " + AnnualSalary);
+        System.out.println("Personal relief               = " + PersonalRelief);
+        System.out.println("Insurance                     = " + insurance);
+        System.out.println("Parent relief                 = " + (FatherRelief+MotherRelief));
+        System.out.println("Wife relief                   = " + WifeRelief);
+        System.out.println("Children relief               = " + ChildrenRelief);
+        System.out.println("============================================");
+        System.out.println("Taxable Income                = " + taxableIncome);
+        System.out.println("Calculate-----------------------------------");
+
+        int tax;
+                System.out.println("0 to 20             0%                    2000000");
+        if(taxableIncome>2000000 &&taxableIncome<5000000){
+            tax=taxableIncome-2000000;
+            int amount= (tax)*5/100;
+            if(tax>3000000){
+                System.out.println("20 to 50            5%                    3000000"+150000);
+            }else {
+                System.out.println("20 to 50            5%                    "+tax+"           "+amount);
+            }
+        }else {
+            System.out.println(" ");
+        }
+        if(taxableIncome>5000000 && taxableIncome<10000000) {
+            tax = (taxableIncome - 5000000);
+            int amount = (tax) * 10 / 100;
+
+            if (tax > 5000000) {
+                System.out.println("50 to 100           10%                    5,000,000         " + 500000);
+            } else {
+                System.out.println("50 to 100           10%                    " + tax + "           " + amount);
+            }
+        }else {
+            System.out.println(" ");
+        }
+
+        if(taxableIncome>10000000 && taxableIncome< 20000000){
+            tax = (taxableIncome - 10000000);
+            int amount = (tax) * 15 / 100;
+
+            if (tax > 10000000) {
+                System.out.println("100 to 200          15%                   10,000,000           " + 1500000);
+            } else {
+                System.out.println("100 to 200          15%                   " + tax + "         " + amount);
+            }
+        }else {
+            System.out.println(" ");
+        }
+        if(taxableIncome>20000000 && taxableIncome<30000000) {
+            tax = (taxableIncome - 10000000);
+            int amount = (tax) * 20 / 100;
+
+            if (tax > 10000000) {
+                System.out.println("200 to 300           20%                    10,000,000         " + 2000000);
+            } else {
+                System.out.println("200 to 300           20%                    " + tax + "         " + amount);
+            }
+        }else {
+            System.out.println(" ");
+        }
+
+        System.out.println("Total Tax                     = " + totalTax);
+        System.out.println("Monthly Tax                   = " + monthlyTax);
+
+
+
+    }
+
+}
